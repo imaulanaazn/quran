@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
+:root{
+  --dark-violet : #8A43E0;
+}
+body{
+    font-family: 'Red Hat Display', sans-serif;
+}
