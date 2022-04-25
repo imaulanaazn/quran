@@ -1,7 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
 :root{
-  --dark-violet : #8A43E0;
+  --dark-green : #599C87;
+  --green: #6FC6AA;
 }
+*{
+  box-sizing: border-box;
+  /* outline: 1px red solid; */
+}
+
 body{
     font-family: 'Red Hat Display', sans-serif;
+}
+
+body.landing{
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-wrapper{
+  width: 85%;
+  height: 85%;
+  text-align: center;
+}
+
+.flex-wrapper .land-txt{
+  width: 55%;
+  height: 22%;
+  margin: 0 auto;
+}
+
+.flex-wrapper .land-txt h1{
+  font-size: 1.6rem;
+  color: var(--dark-green);
+  margin: 0 0 .8rem;
+}
+
+.flex-wrapper .land-txt h2{
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--dark-green);
+  margin: 0;
+}
+
+.flex-wrapper .btn{
+  width: 60%;
+  height: 8%;
+  margin: auto;
+  transform: translateY(-50%);
+  display: flex;
+}
+
+.flex-wrapper .btn #signin{
+  width: 50%;
+  height: 100%;
+  border: 2px solid #EFD2C0;
+  border-radius: 0 30px 30px 0;
+  background-color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #EFD2C0;
+}
+
+.flex-wrapper .btn #signup{
+  width: 59%;
+  height: 100%;
+  border: 1px solid #EFD2C0;
+  border-radius: 30px 0 0 30px;
+  background-color: #EFD2C0;
+  font-weight: 500;
+  font-size: 1rem;
+  color: white;
+}
+
+.flex-wrapper .card-img{
+  width: 100%;
+  height: 74%;
+  border-radius: 25px;
+  background-color: var(--green);
+  display: flex;
+  align-items: center;
+}
+
+.flex-wrapper .card-img img{
+  width: 100%;
 }
