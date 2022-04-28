@@ -3,6 +3,8 @@
 :root{
   --dark-green : #599C87;
   --green: #6FC6AA;
+  --green-gray: #8aad9f;
+  --underscore: #a5bbb4;
   /* --btn-green : #636940 */; 
 }
 *{
@@ -46,7 +48,7 @@ body#landing{
 #landing .flex-wrapper .land-txt h2{
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--dark-green);
+  color: var(--green-gray);
   margin: 0;
 }
 
@@ -80,7 +82,7 @@ body#landing{
   color: white;
 }
 
-#landung .flex-wrapper .card-img{
+#landing .flex-wrapper .card-img{
   width: 100%;
   height: 74%;
   border-radius: 25px;
@@ -89,7 +91,7 @@ body#landing{
   align-items: center;
 }
 
-#landin .flex-wrapper .card-img img{
+#landing .flex-wrapper .card-img img{
   width: 100%;
 }
 
@@ -97,6 +99,7 @@ body#landing{
 
 #dashboard{
   padding: 6% 5% 5%;
+  overflow-y: scroll;
 }
 
 header#dashboard-header {
@@ -104,6 +107,9 @@ header#dashboard-header {
   align-items: center;
   width: 100%;
   height: auto;
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 #search-i{
@@ -127,7 +133,7 @@ header #title{
 #dashboard #salam{
   font-weight: 500;
   font-size: 1rem;
-  color: var(--green);
+  color: var(--green-gray);
   margin: 0;
 }
 
@@ -147,7 +153,7 @@ header #title{
 
 #dashboard .lastread-card h2{
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   margin-top: 0;
@@ -171,15 +177,19 @@ header #title{
 
 #dashboard .sortby .sortby-title{
   display: flex;
+  border-bottom: 1px var(--underscore) solid;
 }
 
 #dashboard .sortby .sortby-title h3{
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 1rem 0 0 0;
+  padding: 1rem 0;
   flex: 1;
   text-align: center;
-  padding-bottom: 10px;
   position: relative;
-  transition: 1s
+  transition: 1s;
+  color: var(--green-gray);
 }
 
 #dashboard .sortby .sortby-title h3::after{
@@ -190,10 +200,49 @@ header #title{
   transform: translateX(-50%);
   width: 0;
   height: .2rem;
-  background-color: red;
+  background-color: var(--green);
+  transition: .5s ease all;
 }
 
 #dashboard .sortby .sortby-title h3.underscore::after{
   width: 100%;
-  transition: .5s ease all;
+}
+
+
+#dashboard ul a li{
+	list-style: none;
+	display: flex;
+	align-items: center;
+}
+
+#dashboard ul{
+	padding: 0;
+}
+
+#dashboard ul a{
+	text-decoration: none;
+}
+
+#dashboard ul a li{
+	padding: 1rem 0;
+	border-bottom: 1px var(--underscore) solid;
+}
+
+#dashboard ul a li .surah{
+	flex: 1;
+	margin: 0 1rem;
+}
+
+#dashboard ul a li h5, p{
+	margin: 0;
+	color: black;
+}
+
+#dashboard ul a li .surah h5{
+	font-size: 1rem;
+}
+
+#dashboard ul a li .surah p{
+	font-size: .6rem;
+	color: var(--green-gray)
 }
