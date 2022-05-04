@@ -24,101 +24,102 @@ sortbyTitle.forEach(title => title.addEventListener('mouseout',function(){
 
 let listContainer = document.querySelector('.sort-list')
 
-function showDefault(){
-  listContainer.innerHTML = '';
-  fetch('http://api.alquran.cloud/v1/surah')
-	.then(res => res.json())
+async function showDefault(){
+	try{
+		const res = await fetch('http://api.alquran.cloud/v1/surah')
+		return res.json()	
+	}catch(err){
+		console.log(err)
+	}	
+}
+function showSurah(){
+	listContainer.innerHTML = '';
+	showDefault()
 	.then(res => {
 		res.data.forEach(surah => 
-		listContainer.innerHTML += showSurah(surah.number,surah.englishName,surah.revelationType,surah.numberOfAyahs,surah.name)
+		listContainer.innerHTML += 
+		`<a href="#">
+	  		<li>
+				<div class="num">
+				<h5>${surah.number}</h5>
+				</div>
+
+				<div class="surah">
+					<h5>${surah.englishName}</h5>
+					<p>${surah.revelationType} - ${surah.numberOfAyahs} VERSES</p>
+				</div>
+
+				<div class="arab">
+				${surah.name}
+				</div>
+	  		</li>
+  		</a>`
 		)
 	})
+}
 
-function showSurah(num,engName,revel,verse,arab){
+showSurah()
+
+const sortBySurah = document.getElementById('surah-btn')
+sortBySurah.addEventListener('click',showSurah)
+
+async function getData(){
+	try{
+		const res = await fetch('http://api.alquran.cloud/v1/meta')
+		const datas = await res.json()
+		return datas
+	}catch (err){
+		console.log(err)
+	}
+}
+
+function showLists(title,num, surah, ayah) {
 	return ` 
 	<a href="#">
 	  <li>
-	    <div class="num">
-	      <h5>${num}</h5>
-	    </div>
+		<div class="num">
+		  <h5>${num}</h5>
+		</div>
 
-	    <div class="surah">
-	        <h5>${engName}</h5>
-	        <p>${revel} - ${verse} VERSES</p>
-	    </div>
-
-	    <div class="arab">
-	      ${arab}
-	    </div>
+		<div class="surah">
+			<h5>${title} ${num}</h5>
+			<p>Start from: ${surah} Ayah ${ayah}</p>
+		</div>
 	  </li>
-  	</a>`
-}}
+  </a>`
+}
 
-showDefault()
-
-const sortBySurah = document.getElementById('surah-btn')
-sortBySurah.addEventListener('click',showDefault)
 
 const sortByPara = document.getElementById('para-btn')
-sortByPara.addEventListener('click', function(){
-  
-  listContainer.innerHTML = '';
-  
-  fetch('http://api.alquran.cloud/v1/meta')
-    .then(data => data.json())
-    .then(data => {
-      let datas = data.data
-      datas.juzs.references.forEach((juz,i) => {
-       listContainer.innerHTML += showPara(i+1,datas.surahs.references[datas.juzs.references[i].surah-1].englishName,datas.juzs.references[i].ayah)
-      })
-    })
-  
-})
-
-function showPara(num, surah, ayah) {
-  	return ` 
-  	<a href="#">
-  	  <li>
-  	    <div class="num">
-  	      <h5>${num}</h5>
-  	    </div>
-
-  	    <div class="surah">
-  	        <h5>Juz ${num}</h5>
-  	        <p>Start from: ${surah} Ayah ${ayah}</p>
-  	    </div>
-  	  </li>
-    	</a>`
-  }
+	sortByPara.addEventListener('click', function(){
+		getData().then(data => {
+			listContainer.innerHTML = '';
+			let datas = data.data
+			datas.juzs.references.forEach((hijb,i) => {
+			 listContainer.innerHTML += showLists('Juz',i+1,datas.surahs.references[datas.juzs.references[i].surah-1].englishName,datas.juzs.references[i].ayah)
+		  	})
+		})
+	})
 
 const sortByPage = document.getElementById('page-btn')
-sortByPage.addEventListener('click', function(){
-  
-  listContainer.innerHTML = '';
-  
-  fetch('http://api.alquran.cloud/v1/meta')
-    .then(data => data.json())
-    .then(data => {
-      let datas = data.data
-      datas.pages.references.forEach((page,i) => {
-       listContainer.innerHTML += showPages(i+1,datas.surahs.references[datas.pages.references[i].surah-1].englishName,datas.pages.references[i].ayah)
-      })
-    })
-  
-})
+	sortByPage.addEventListener('click', function(){
+		getData().then(data => {
+			listContainer.innerHTML = '';
+			let datas = data.data
+			datas.pages.references.forEach((hijb,i) => {
+			 listContainer.innerHTML += showLists('Page',i+1,datas.surahs.references[datas.pages.references[i].surah-1].englishName,datas.pages.references[i].ayah)
+		  	})
+		})
+	})
 
-function showPages(num, surah, ayah) {
-  	return ` 
-  	<a href="#">
-  	  <li>
-  	    <div class="num">
-  	      <h5>${num}</h5>
-  	    </div>
+  const sortByHijb = document.getElementById('hijb-btn')
+	sortByHijb.addEventListener('click', function(){
+		getData().then(data => {
+			listContainer.innerHTML = '';
+			let datas = data.data
+			datas.hizbQuarters.references.forEach((hijb,i) => {
+			 listContainer.innerHTML += showLists('Hijb',i+1,datas.surahs.references[datas.hizbQuarters.references[i].surah-1].englishName,datas.hizbQuarters.references[i].ayah)
+		  	})
+		})
+	})
 
-  	    <div class="surah">
-  	        <h5>Page ${num}</h5>
-  	        <p>Start from: ${surah} Ayah ${ayah}</p>
-  	    </div>
-  	  </li>
-    	</a>`
-  }
